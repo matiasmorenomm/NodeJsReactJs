@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
-function App() {
+export default function App() {
+  const { register, handleSubmit, errors } = useForm();
+  const onSubmit = data => {
+    axios
+    .post("http://localhost:5000/api/libro", data)
+    .then(
+      response => {
+        console.log(response.data)
+      }
+    )
+    .catch((error) => {
+      console.log(error)
+    })
+  } ;
+  console.log(errors);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <input type="text" placeholder="nombre" name="nombre" ref={register} />
+      <input type="text" placeholder="autor" name="autor" ref={register} />
+      <input type="number" placeholder="ano" name="ano" ref={register} />
+      <input type="text" placeholder="idioma" name="idioma" ref={register} />
+
+      <input type="submit" />
+    </form>
   );
 }
-
-export default App;

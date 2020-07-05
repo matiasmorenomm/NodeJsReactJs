@@ -8,6 +8,8 @@ var bodyParser = require('body-parser')
 const app = express()
 /* Se requiere mongoose */
 var mongoose = require('mongoose')
+/* Se requiere cors para solicitud de origen crusados */
+var cors = require('cors')
 
 /* Recibe parametros por urlencoded y json */
 // parse application/x-www-form-urlencoded
@@ -19,7 +21,8 @@ app.use(bodyParser.json())
  var routes = require('./routes/routes');
 
  /* Le asigno a la instancia de express (app) la variable donde se encuentran las rutas(routes) */
- app.use('/api', routes);
+ /* Tambien asignamos cors para el origen cruzado de datos */
+ app.use('/api',cors(), routes);
 
  /* Conexion a mongoDB */
  mongoose.connect( 'mongodb://localhost:27017/TallerWeb' , { useNewUrlParser: true }, (err, res)  => {
