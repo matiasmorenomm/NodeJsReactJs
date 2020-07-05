@@ -1,31 +1,43 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import logo from './logo.svg';
+import './App.css';
+import MaterialDatatable from "material-datatable";
 import axios from 'axios';
 
-export default function App() {
-  const { register, handleSubmit, errors } = useForm();
-  const onSubmit = data => {
-    axios
-    .post("http://localhost:5000/api/libro", data)
-    .then(
-      response => {
-        console.log(response.data)
+function App() {
+  var data;
+  const onInit = axios.get("http://localhost:5000/api/libro").then(
+      (response) => {
+        data = response.data.libros
       }
     )
     .catch((error) => {
       console.log(error)
-    })
-  } ;
-  console.log(errors);
-  
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input type="text" placeholder="nombre" name="nombre" ref={register} />
-      <input type="text" placeholder="autor" name="autor" ref={register} />
-      <input type="number" placeholder="ano" name="ano" ref={register} />
-      <input type="text" placeholder="idioma" name="idioma" ref={register} />
-
-      <input type="submit" />
-    </form>
+    }
+    )
+  const columns = [
+    {   
+        name: 'Nombre', 
+        field: 'nombre',
+    },
+    {
+        name: 'Title', 
+        field: 'autor'
+    },
+    {
+        name: 'Location', 
+        field: 'idioma',
+    }
+    
+];
+ 
+  return (   
+    <MaterialDatatable
+    title={"Employee List"}
+    data={data}
+    columns={columns}
+    />
   );
 }
+
+export default App;
