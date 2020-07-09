@@ -5,7 +5,6 @@ const libroSchema = Schema({
     autor: String,
     ano: Number,
     idioma: {type: String, enum:['espanol', 'ingles']}
-  }
-)
+  })
 
 module.exports = mongoose.model('libros', libroSchema)

@@ -1,43 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import MaterialDatatable from "material-datatable";
-import axios from 'axios';
+import React from "react";
+import Form from './components/form';
+import Table from './components/table';
+import Register from './components/register';
+import Login from './components/login';
 
-function App() {
-  var data;
-  const onInit = axios.get("http://localhost:5000/api/libro").then(
-      (response) => {
-        data = response.data.libros
-      }
-    )
-    .catch((error) => {
-      console.log(error)
-    }
-    )
-  const columns = [
-    {   
-        name: 'Nombre', 
-        field: 'nombre',
-    },
-    {
-        name: 'Title', 
-        field: 'autor'
-    },
-    {
-        name: 'Location', 
-        field: 'idioma',
-    }
-    
-];
- 
-  return (   
-    <MaterialDatatable
-    title={"Employee List"}
-    data={data}
-    columns={columns}
-    />
+export default function App() {
+  return (
+    <div>
+      <Form></Form>
+      <Table></Table>
+  </div>
   );
 }
-
-export default App;
