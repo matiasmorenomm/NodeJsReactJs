@@ -22,11 +22,11 @@ routes.post('/libro', libroController.guardar)
 routes.get('/libro', libroController.libros)
 routes.get('/libro/:id', libroController.libro)
 routes.put('/libro/:id', libroController.actualizar)
-routes.delete('/libro/:id',Token, libroController.eliminar)
+routes.delete('/libro/:id', libroController.eliminar)
 routes.get('/libroB/:ano/:idioma', libroController.busqueda)
 
 /* Rutas para Usuario */
-routes.post('/usuario',usuarioController.guardar)
+routes.post('/usuario', Token,usuarioController.guardar)
 routes.post('/login',usuarioController.login)
 
 function Token(req, res, next) {
