@@ -19,8 +19,8 @@ export default function Form() {
   } 
   return(
     <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" placeholder="nombre" name="nombre" ref={register} />
-        <input type="text" placeholder="autor" name="autor" ref={register} />
+        <input type="text" placeholder="nombre" required name="nombre" ref={register} />
+        <input type="text" placeholder="autor" required name="autor" ref={register} />
         <input type="number" placeholder="ano" name="ano" ref={register} />
         <select name="idioma" ref={register}>
           <option value="ingles">ingles</option>
