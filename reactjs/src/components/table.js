@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MaterialDatatable from "material-datatable";
 import axios from 'axios';
+import AppBar from './AppBar';
 
 export default function Table() {
   
@@ -60,8 +61,9 @@ export default function Table() {
   }
   
   return (
-      
-      <MaterialDatatable
+      <div>
+      <AppBar></AppBar>
+        <MaterialDatatable
         title={"Libros"}
         data={item}
         columns={columns}
@@ -89,6 +91,6 @@ export default function Table() {
           sortColumnDirection: "desc",
         }}
       />
-      
+      </div>
   );
 }

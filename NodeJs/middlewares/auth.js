@@ -15,9 +15,6 @@ function isAuth(req, res, next){
     return res.status(401).send({ message: 'El token no es valido'});
   }
 
-  var edcode = jwt.decode(token)
-  console.log(edcode)
-
   next();
 }
 
