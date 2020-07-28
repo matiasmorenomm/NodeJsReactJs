@@ -55,13 +55,14 @@ export default function SignIn() {
     .post("http://localhost:5000/api/login",data)
     .then(
       response => {
-        console.log(response.data)
+        localStorage.setItem('Token', response.data.token);
+
+        window.location = '/libros'
       }
     )
     .catch((error)=> {
-      console.log(error);
+      console.log(error.response.data.message);
     })
-    console.log(data);
   } 
   const classes = useStyles();
 
@@ -120,7 +121,7 @@ export default function SignIn() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link  href="/registro" variant="body2">
                 {"No tienes cuenta? Registrate"}
               </Link>
             </Grid>

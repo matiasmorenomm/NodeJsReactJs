@@ -21,23 +21,24 @@ function guardar(req, res) {
 function login(req, res) {
   let email = req.body.email
   let pass = req.body.pass
-
-  Usuario.findOne({
-    email: email
-  }).exec((err, usuario) => {
-    if (err || !usuario) res.status(400).send(`No existe el usuario`)
-
-    bcrypt.compare(pass, usuario.pass, function (err, result) {
-      if (result) {
-        var token = jwt.sign({usuario}, 'clavesecreta');
-        res.status(200).send({
-          token: token
-        })
-      } else {
-        res.status(404).send(`La contraseña no es correcta`)
-      }
+  
+    Usuario.findOne({
+      email: email
+    }).exec((err, usuario) => {
+      if (err || !usuario) return res.status(400).send({ message: 'El usuario no existe'})
+  
+      bcrypt.compare(pass, usuario.pass, function (err, result) {
+        if (result) {
+          var token = jwt.sign({usuario}, 'clavesecreta');
+          return res.status(200).send({
+            token: token
+          })
+        } else {
+          return res.status(404).send({ message: 'La contraseña no es correcta'})
+        }
+      })
     })
-  })
+  
 }
 
 module.exports = {

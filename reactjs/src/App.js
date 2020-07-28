@@ -1,14 +1,29 @@
 import React from "react";
-import Form from './components/form';
-import Table from './components/table';
 import Register from './components/register';
 import Login from './components/login';
+import Libros from './components/table';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
 export default function App() {
   return (
-    <div>
-      <Form></Form>
-      <Table></Table>
-  </div>
+    <Router>
+      <Switch>
+      <Route path="/" exact>
+            <Login />
+          </Route>
+          <Route path="/registro">
+            <Register/>
+          </Route>
+          <Route path="/libros">
+            <Libros/>
+          </Route>
+        </Switch>
+    </Router>
+    
   );
 }

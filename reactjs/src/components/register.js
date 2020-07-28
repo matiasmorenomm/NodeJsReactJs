@@ -49,7 +49,10 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = data => {
-    axios
+    console.log(data)
+
+    if(data.Rpass == data.pass){
+      axios
     .post("http://localhost:5000/api/usuario",data)
     .then(
       response => {
@@ -60,6 +63,10 @@ export default function SignUp() {
       console.log(error);
     })
     console.log(data);
+    }else{
+      console.log("Las contraseñas no coinciden");
+    }
+   
   } 
   const classes = useStyles();
 
@@ -125,6 +132,19 @@ export default function SignUp() {
                 inputRef={register}
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="Rpass"
+                label="Repetir Contraseña"
+                type="password"
+                id="Rpass"
+                autoComplete="current-password"
+                inputRef={register}
+              />
+            </Grid>
           </Grid>
           <Button
             type="submit"
@@ -137,7 +157,7 @@ export default function SignUp() {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/" variant="body2">
                 Ya tienes una cuenta? Ingresa
               </Link>
             </Grid>
