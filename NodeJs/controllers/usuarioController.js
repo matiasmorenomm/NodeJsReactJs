@@ -11,8 +11,8 @@ function guardar(req, res) {
   usuario.pass = req.body.pass
 
   usuario.save((err, usuarioStore) => {
-    if (err) res.status(500).send(`Error base de datos ${err}`)
-    res.status(200).send({
+    if (err) return res.status(500).send(`Error base de datos ${err}`)
+    return res.status(200).send({
       usuario: usuarioStore
     })
   })
@@ -38,7 +38,6 @@ function login(req, res) {
         }
       })
     })
-  
 }
 
 module.exports = {

@@ -28,7 +28,7 @@ routes.delete('/libro/:id', libroController.eliminar)
 routes.get('/libroB/:ano/:idioma', libroController.busqueda)
 
 /* Rutas para Usuario */
-routes.post('/usuario', auth.isAuth,usuarioController.guardar)
+routes.post('/usuario',usuarioController.guardar)
 routes.post('/login',usuarioController.login)
 
 

@@ -53,8 +53,7 @@ export default function Table() {
   }, []);
 
   const cargar = async() =>{
-    var token = localStorage.getItem('Token');
-    const { data } = await axios.get("http://localhost:5000/api/libro", {headers: {'Authorization': token}});
+    const { data } = await axios.get("http://localhost:5000/api/libro");
     /* setItem es la funcion asignada para cambiar el valor de item */
     setItem(data.libros);
     return null;
