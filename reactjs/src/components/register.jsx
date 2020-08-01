@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function Copyright() {
   return (
@@ -49,22 +50,40 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = data => {
-    console.log(data)
 
     if(data.Rpass == data.pass){
       axios
     .post("http://localhost:5000/api/usuario",data)
     .then(
       response => {
-        console.log(response.data)
+        if(response.status == 200){
+          Swal.fire({
+            icon: 'success',
+            title: 'Exito...',
+            text: 'Se ha registrado de forma correcta'
+          })
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: response.data.message,
+          })
+        }
       }
     )
     .catch((error)=> {
-      console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.response.data.message,
+      })
     })
-    console.log(data);
     }else{
-      console.log("Las contraseñas no coinciden");
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Las contraseñas no coinciden',
+      })
     }
    
   } 

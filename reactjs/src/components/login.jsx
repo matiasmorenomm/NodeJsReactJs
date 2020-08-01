@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function Copyright() {
   return (
@@ -55,13 +56,24 @@ export default function SignIn() {
     .post("http://localhost:5000/api/login",data)
     .then(
       response => {
-        localStorage.setItem('Token', response.data.token);
-
-        window.location = '/libros'
+        localStorage.setItem('Token_react', response.data.token);
+        if(response.status == 200){
+          window.location = '/libros'
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: response.data.message,
+          })
+        }
       }
     )
     .catch((error)=> {
-      console.log(error.response.data.message);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.response.data.message,
+      })
     })
   } 
   const classes = useStyles();

@@ -10,12 +10,18 @@ function guardar(req, res) {
   usuario.email = req.body.email
   usuario.pass = req.body.pass
 
-  usuario.save((err, usuarioStore) => {
-    if (err) return res.status(500).send(`Error base de datos ${err}`)
-    return res.status(200).send({
-      usuario: usuarioStore
+  Usuario.findOne({
+    email:usuario.email
+  }).exec((err, ema) => {
+    if(err || ema) return res.status(400).send({message: 'Este email ya se encuentra registrado'})
+
+    usuario.save((err, usuarioStore) => {
+      if (err) return res.status(500).send(`Error base de datos ${err}`)
+      return res.status(200).send({
+        usuario: usuarioStore
+      })
     })
-  })
+  } )
 }
 
 function login(req, res) {
